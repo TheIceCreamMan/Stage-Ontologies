@@ -1,0 +1,145 @@
+@prefix : <http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15> .
+
+<http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#aEteCorrige
+:aEteCorrige rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#aEteRendu
+:aEteRendu rdf:type owl:ObjectProperty ;
+           rdfs:domain :Test ;
+           rdfs:range :Eleve .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#apprendDe
+:apprendDe rdf:type owl:ObjectProperty ,
+                    owl:FunctionalProperty ;
+           rdfs:domain :Eleve ;
+           rdfs:range :Professeur .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#corrigeDevoir
+:corrigeDevoir rdf:type owl:ObjectProperty ;
+               rdfs:domain :Professeur ;
+               rdfs:range :Devoir .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#corrigeTest
+:corrigeTest rdf:type owl:ObjectProperty ;
+             rdfs:domain :Professeur ;
+             rdfs:range :Test .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#enseigneA
+:enseigneA rdf:type owl:ObjectProperty ;
+           rdfs:domain :Professeur ;
+           rdfs:range :Eleve .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#rendDevoir
+:rendDevoir rdf:type owl:ObjectProperty ;
+            rdfs:domain :Eleve ;
+            rdfs:range :Devoir .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#rendTest
+:rendTest rdf:type owl:ObjectProperty ;
+          rdfs:domain :Eleve ;
+          rdfs:range :Devoir .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#age
+:age rdf:type owl:DatatypeProperty ;
+     rdfs:domain :Personne ;
+     rdfs:range xsd:positiveInteger .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#nom
+:nom rdf:type owl:DatatypeProperty ;
+     rdfs:domain :Personne ;
+     rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#prenom
+:prenom rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Personne ;
+        rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#resultat
+:resultat rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Note ;
+          rdfs:range xsd:double .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#Devoir
+:Devoir rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#Eleve
+:Eleve rdf:type owl:Class ;
+       rdfs:subClassOf :Personne ;
+       owl:disjointWith :Professeur .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#Note
+:Note rdf:type owl:Class ;
+      owl:equivalentClass [ owl:intersectionOf ( :Test
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :aEteCorrige ;
+                                                   owl:someValuesFrom :Professeur
+                                                 ]
+                                               ) ;
+                            rdf:type owl:Class
+                          ] .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#Personne
+:Personne rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#Professeur
+:Professeur rdf:type owl:Class ;
+            rdfs:subClassOf :Personne .
+
+
+###  http://www.semanticweb.org/jb/ontologies/2020/6/untitled-ontology-15#Test
+:Test rdf:type owl:Class ;
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :aEteRendu ;
+                        owl:someValuesFrom :Eleve
+                      ] .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Devoir
+                :Personne
+                :Test
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
